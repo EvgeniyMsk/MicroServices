@@ -6,9 +6,12 @@ import lombok.Data;
 public class AggregatedInformation {
     private String name;
     private String capital;
-    private String area;
+    private String region;
+    private boolean independent;
     private int population;
-    private String googleMaps;
+    private String[] borders;
+    private String flag;
+    private String area;
     private int deaths;
     private int confirmed;
     private int recovered;
@@ -19,18 +22,25 @@ public class AggregatedInformation {
 
     public AggregatedInformation(Country country, Covid covid) {
         try {
-            this.name = country.getName().getCommon();
-            this.capital = country.getCapital()[0];
-            this.area = country.getArea();
+            this.name = country.getName();
+            this.capital = country.getCapital();
+            this.region = country.getRegion();
+            this.independent = country.isIndependent();
             this.population = country.getPopulation();
-            this.googleMaps = country.getMaps().getGoogleMaps();
+            this.borders = country.getBorders();
+            this.flag = country.getFlag();
+            this.area = country.getArea();
+
         }
         catch (Exception e) {
             this.name = "No data";
             this.capital = "No data";
+            this.region = "No data";
+            this.independent = false;
+            this.population = 0;
+            this.borders = new String[0];
+            this.flag = "No data";
             this.area = "No data";
-            this.population = -1;
-            this.googleMaps = "No data";
         }
         try {
             this.deaths = covid.getLatest_data().getDeaths();

@@ -3,85 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .container {
+            margin: 0 auto;
+            padding: 0;
+            max-width: 1000px;
+        }
+
+        table {
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
-<h1>Агрегированная информация по стране</h1>
-<div>
-    <table border="3" style="text-align: center">
-        <tr>
-            <th colspan="5">Географические данные</th>
-        </tr>
-        <tr>
-            <th>
-                Название
-            </th>
-            <th>
-                Столица
-            </th>
-            <th>
-                Площадь
-            </th>
-            <th>
-                Население
-            </th>
-            <th>
-                Ссылка на GoogleMaps
-            </th>
-        </tr>
-        <td th:text="${aggregatedinformation.getName()}"></td>
+<div class="container">
+    <h1 style="text-align: center">Агрегированная информация по стране</h1>
+    <div>
+        <table border="3" style="text-align: center; margin: 0 auto">
+            <tr>
+                <th colspan="5">Географические данные</th>
+            </tr>
+            <tr>
+                <th>
+                    Название
+                </th>
+                <th>
+                    Столица
+                </th>
+                <th>
+                    Площадь
+                </th>
+                <th>
+                    Население
+                </th>
+                <th>
+                    Флаг
+                </th>
+            </tr>
+            <td th:text="${aggregatedinformation.getName()}"></td>
 
-        <td th:text="${aggregatedinformation.getCapital()}"></td>
+            <td th:text="${aggregatedinformation.getCapital()}"></td>
 
-        <td th:text="${aggregatedinformation.getArea()}"></td>
+            <td th:text="${aggregatedinformation.getArea()}"></td>
 
-        <td th:text="${aggregatedinformation.getPopulation()}"></td>
+            <td th:text="${aggregatedinformation.getPopulation()}"></td>
 
-        <td th:text="${aggregatedinformation.getGoogleMaps()}"></td>
-    </table>
+            <td><img style="width: 100px; height: 70px" th:src="${aggregatedinformation.getFlag()}"></td>
+        </table>
+    </div>
+    <hr/>
+    <div>
+        <table border="3px solid" style="text-align: center;">
+            <tr>
+                <th colspan="7">Данные по COVID-19</th>
+            </tr>
+            <tr>
+                <th>
+                    Количество смертей
+                </th>
+                <th>
+                    Зараженные
+                </th>
+                <th>
+                    Выздоровевшие
+                </th>
+                <th>
+                    В критическом состоянии
+                </th>
+                <th>
+                    Индекс смерти
+                </th>
+                <th>
+                    Индекс выздоровления
+                </th>
+                <th>
+                    Количество заболевших на 1 млн.
+                </th>
+            </tr>
+            <td th:text="${aggregatedinformation.getDeaths()}"></td>
+
+            <td th:text="${aggregatedinformation.getConfirmed()}"></td>
+
+            <td th:text="${aggregatedinformation.getRecovered()}"></td>
+
+            <td th:text="${aggregatedinformation.getCritical()}"></td>
+
+            <td th:text="${aggregatedinformation.getDeath_rate()}"></td>
+
+            <td th:text="${aggregatedinformation.getRecovery_rate()}"></td>
+
+            <td th:text="${aggregatedinformation.getCases_per_million_population()}"></td>
+        </table>
+    </div>
 </div>
-</br>
-<div>
-    <table border="3" style="text-align: center">
-        <tr>
-            <th colspan="7">Данные по COVID-19</th>
-        </tr>
-        <tr>
-            <th>
-                Количество смертей
-            </th>
-            <th>
-                Зараженные
-            </th>
-            <th>
-                Выздоровевшие
-            </th>
-            <th>
-                В критическом состоянии
-            </th>
-            <th>
-                Индекс смерти
-            </th>
-            <th>
-                Индекс выздоровления
-            </th>
-            <th>
-                Количество заболевших на 1 млн.
-            </th>
-        </tr>
-        <td th:text="${aggregatedinformation.getDeaths()}"></td>
 
-        <td th:text="${aggregatedinformation.getConfirmed()}"></td>
-
-        <td th:text="${aggregatedinformation.getRecovered()}"></td>
-
-        <td th:text="${aggregatedinformation.getCritical()}"></td>
-
-        <td th:text="${aggregatedinformation.getDeath_rate()}"></td>
-
-        <td th:text="${aggregatedinformation.getRecovery_rate()}"></td>
-
-        <td th:text="${aggregatedinformation.getCases_per_million_population()}"></td>
-    </table>
-</div>
 </body>
 </html>

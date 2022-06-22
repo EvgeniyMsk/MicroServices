@@ -6,17 +6,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Country {
-    private Name name;
-    private String[] tld;
-    private boolean independent;
-    private String[] capital;
-    private String[] altSpellings;
+    private String name;
+    private String capital;
     private String region;
-    private String subregion;
-    private String[] latlng;
-    private String[] borders;
-    private String area;
-    private Maps maps;
+    private boolean independent;
     private int population;
-    private String[] timezones;
+    private String[] borders;
+    private String flag;
+    private String area;
 }

@@ -7,10 +7,17 @@
     <groupId>edu.school21</groupId>
     <artifactId>Microservices-School21</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <packaging>pom</packaging>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <modules>
+        <module>aggregatorapplication</module>
+        <module>apigateway</module>
+        <module>countriesapplication</module>
+        <module>covidapplication</module>
+    </modules>
 
 </project>

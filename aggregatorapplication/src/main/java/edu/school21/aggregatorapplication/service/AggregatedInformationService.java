@@ -1,54 +1,47 @@
 package edu.school21.aggregatorapplication.service;
 
-import com.google.gson.Gson;
 import edu.school21.aggregatorapplication.entity.AggregatedInformation;
 import edu.school21.aggregatorapplication.entity.Country;
 import edu.school21.aggregatorapplication.entity.Covid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.stereotype.Service;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
+import org.springframework.web.client.RestTemplate;
 @Service
 public class AggregatedInformationService {
+    @Autowired
+    @LoadBalanced
+    private final RestTemplate template;
 
-    public AggregatedInformation getInfoByCountryName(String countryName) throws IOException {
-        String covidServiceURL =    "http://localhost/covid-management/countries/";
-        String countriesServiceURL ="http://localhost/countries-management/countries/";
+    @Autowired
+    private LoadBalancerClient loadBalancer;
+    public AggregatedInformationService(RestTemplate template) {
+        this.template = template;
+    }
+
+    public AggregatedInformation getInfoByCountryName(String countryName) {
+        String covidServiceURL =    "http://covid-management/countries/";
+        String countriesServiceURL ="http://countries-management/countries/";
 
         String countriesURL = countriesServiceURL + countryName;
         String covidURL = covidServiceURL + countryName;
         Country country;
         Covid covid;
-
-        Gson gson = new Gson();
+        ServiceInstance instance = loadBalancer.choose("covid-management");
+        System.out.println(instance.getHost());
         try {
-            country = gson.fromJson(getDatafromURL(countriesURL), Country.class);
+            System.out.println(template.getUriTemplateHandler().expand(countriesURL).getHost());
+            country = template.getForObject(countriesURL, Country.class);
         } catch (Exception e) {
             country = null;
         }
         try {
-            covid = gson.fromJson(getDatafromURL(covidURL), Covid.class);
+            covid = template.getForObject(covidURL, Covid.class);
         } catch (Exception e) {
             covid = null;
         }
         return new AggregatedInformation(country, covid);
-    }
-
-    private String getDatafromURL(String url) throws IOException {
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("GET");
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-        return response.toString();
     }
 }

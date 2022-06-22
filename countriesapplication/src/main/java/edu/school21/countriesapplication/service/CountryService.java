@@ -18,8 +18,8 @@ public class CountryService {
 
 
     public Country findByName(String name) throws IOException {
-        String url = "https://restcountries.com/v3.1/lang/rus";
-        URL obj = new URL(url);
+        String url = "https://restcountries.com/v2/name/";
+        URL obj = new URL(url + name);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -32,10 +32,7 @@ public class CountryService {
         in.close();
         Gson gson = new Gson();
         Country[] countries = gson.fromJson(response.toString(), Country[].class);
-        for (Country country : countries)
-            if (country.getName().getCommon().equalsIgnoreCase(name))
-                return country;
-            return null;
+        return countries[0];
     }
 
 }
