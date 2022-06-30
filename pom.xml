@@ -18,6 +18,7 @@
         <module>apigateway</module>
         <module>countriesapplication</module>
         <module>covidapplication</module>
+        <module>eureka-server</module>
     </modules>
 
 </project>
