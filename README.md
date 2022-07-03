@@ -6,4 +6,5 @@
 Используемые инструменты:
 Spring Cloud [Sprung Boot, Eureka Server, Eureka client, API Gateway]
 Docker, docker-compose
+---
 Запуск: docker-compose -f docker-compose.yml up
