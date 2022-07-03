@@ -3,6 +3,8 @@
 Выполнен: Qsymond, Tfarenga.
 -------------------------
 ---
+![alt text](screenshots/Screen.jpg)
+---
 Используемые инструменты:
 Spring Cloud [Sprung Boot, Eureka Server, Eureka client, API Gateway]
 Docker, docker-compose
